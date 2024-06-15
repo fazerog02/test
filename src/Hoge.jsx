@@ -3,7 +3,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
-const Dictaphone = () => {
+const ReactSpeechRecognitionComponent = () => {
   const {
     transcript,
     listening,
@@ -12,21 +12,27 @@ const Dictaphone = () => {
   } = useSpeechRecognition();
 
   if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
+    return <span>ブラウザが音声認識未対応です</span>;
   }
 
   return (
-    <div>
-      <p>Microphone: {listening ? "on" : "off"}</p>
+    <div id="react-speech-recognition">
+      <p>Status: {listening ? "on" : "off"}</p>
       <button
+        type="button"
         onClick={() => SpeechRecognition.startListening({ continuous: true })}
       >
         Start
       </button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      <button onClick={resetTranscript}>Reset</button>
+      <button type="button" onClick={() => SpeechRecognition.stopListening()}>
+        Stop
+      </button>
+      <button type="button" onClick={() => resetTranscript()}>
+        Reset
+      </button>
       <p>{transcript}</p>
     </div>
   );
 };
-export default Dictaphone;
+
+export default ReactSpeechRecognitionComponent;
